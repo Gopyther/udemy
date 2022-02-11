@@ -8,6 +8,7 @@ import (
 )
 
 var ErrCrewNotFound = errors.New("Crew member not found")
+
 var scMapping = map[string]int{
 	"James": 5,
 	"Kevin": 10,
@@ -27,23 +28,46 @@ func findSC(name, server string) (int, error) {
 	time.Sleep(time.Duration(rand.Intn(50)) * time.Microsecond)
 
 	if v, ok := scMapping[name]; !ok {
-		return -1, findError{name, server, "Crew member not found"}
+		panic("Crew member not found")
 	} else {
 		return v, nil
 	}
 }
 
+// func findSC(name, server string) (int, error) {
+// 	//Simulate searching
+// 	time.Sleep(time.Duration(rand.Intn(50)) * time.Microsecond)
+
+// 	if v, ok := scMapping[name]; !ok {
+// 		return -1, errors.New("Crew member not found")
+// 	} else {
+// 		return v, nil
+// 	}
+// }
+
+// func main() {
+// 	rand.Seed(time.Now().UnixNano())
+
+// 	defer func() {
+// 		if err := recover(); err != nil {
+// 			fmt.Println("A panic recovered", err)
+// 		}
+// 	}()
+// 	if clearance, err := findSC("Ruko", "Server 1"); err != nil {
+// 		fmt.Println("Error occured while searching ", err)
+// 		if v, ok := err.(findError); ok {
+// 			fmt.Println("Server name", v.Server)
+// 			fmt.Println("Crew member name", v.Name)
+// 		}
+// 	} else {
+// 		fmt.Println("Crew member has security clearance:", clearance)
+// 	}
+// }
+
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	if clearance, err := findSC("Ruko", "Server 1"); err != nil {
-		fmt.Println("Error occured while searching ", err)
-		if v, ok := err.(findError); ok {
-			fmt.Println("Server name", v.Server)
-			fmt.Println("Crew member name", v.Name)
-		}
-	} else {
-		fmt.Println("Crew member has security clearance:", clearance)
-	}
+	clearance, err := findSC("Ruko", "Server 1")
+	fmt.Println(" Clearance level found:", clearance, "Error code", err)
 }
 
 // func main() {
