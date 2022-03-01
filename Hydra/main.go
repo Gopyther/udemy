@@ -1,22 +1,25 @@
 package main
 
-import (
-	"Udemy/Hydra/hlogger"
-	"fmt"
-	"net/http"
-)
+import "fmt"
 
-func main() {
-	logger := hlogger.GetInstance()
-	logger.Println("Starting Hydra web service")
-
-	http.HandleFunc("/", sroot)
-	http.ListenAndServe(":8080", nil)
+type player struct {
+	salary int
 }
 
-func sroot(w http.ResponseWriter, r *http.Request) {
-	logger := hlogger.GetInstance()
-	fmt.Fprint(w, "Welcome to the Hydra software system")
+type pro struct {
+	player
+	bonus int
+}
 
-	logger.Println("Received an http Get request on root url")
+func (p player) getsalary() int {
+	return p.salary
+}
+
+func main() {
+	player1 := player{salary: 100}
+	proPlayer := pro{player{salary: 120}, bonus: 30}
+
+	fmt.Println(player1.getsalary())
+	fmt.Println(proPlayer.getsalary() + proPlayer.bonus)
+
 }
