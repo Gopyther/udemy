@@ -47,7 +47,7 @@ func (c *client) writerMonitor() {
 		for s := range c.wc {
 			//logger.Println("Sending", s)
 			c.WriteString(s + "\n")
-			c.Flush
+			c.Flush()
 		}
 	}()
 }
