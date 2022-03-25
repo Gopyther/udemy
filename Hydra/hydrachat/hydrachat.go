@@ -19,7 +19,7 @@ func Run(conneciton string) error {
 	}
 	r := CreateRoom("HydraChat")
 	go func() {
-		//Handel SIGNT and SIGTERM.
+		//Handle SIGNT and SIGTERM.
 		ch := make(chan os.Signal)
 		signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
 		<-ch
